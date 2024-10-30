@@ -3,7 +3,7 @@ const postSchema = new mongoose.Schema({
     id:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: true,
+        // required: true,
     },
     idChat: {
         type: mongoose.Schema.Types.ObjectId,
@@ -36,6 +36,7 @@ const postSchema = new mongoose.Schema({
     },  
     updatedAt: {
         type: Date,
+        
         default: Date.now
     }
 });

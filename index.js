@@ -9,8 +9,14 @@ const postRouter = require('./src/routes/postroute');
 const app = express();
 const cookieParser = require('cookie-parser');
 const path = require('path');
+const session = require('express-session');
 app.use(express.json());
 app.use(cors());
+app.use(session({
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: true,
+}));
 app.use(cookieParser());
 // Corrected the path to views directory
 app.set('views', path.join(__dirname, './src/views'));
@@ -22,4 +28,4 @@ app.use('/post', postRouter);
 //app.use('/chat', chatRouter);
 app.listen(port, () => {
   console.log(`http://localhost:${port}`);
-});
+}); 

@@ -5,6 +5,10 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Post',
     },
+    idPost:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Post',
+    },
     name:{
         type: String,
         required: true
@@ -23,7 +27,7 @@ const userSchema = new mongoose.Schema({
    },
    skills: {
     type: [String],
-    enum: ['HTML', 'CSS', 'JavaScript', 'Node', 'Express', 'React', 'MongoDB','node.js'],
+    enum: ['HTML','html', 'CSS', 'css', 'JavaScript', 'javascript', 'Node', 'node', 'Express', 'express', 'React', 'react', 'MongoDB', 'mongodb', 'node.js', 'nodejs', 'Python', 'python', 'Java', 'java', 'C++', 'c++', 'Ruby', 'ruby', 'Swift', 'swift', 'Go', 'go','php','php','C#','c#','C','c','C#','c#','C#','c#'],
     required: true
    },
    age: {
@@ -34,6 +38,7 @@ const userSchema = new mongoose.Schema({
    },
    password: {
     type: String,
+    minlength: 8,
     required: true
    },
    bio: {
