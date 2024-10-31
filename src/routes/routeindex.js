@@ -24,8 +24,11 @@ router.post('/login', async (req, res) => {
     if (!user) return res.status(401).send('Invalid email');
     const isValid = await bcrypt.compare(password, user.password);
     if (!isValid) return res.status(401).send('Invalid password');
-    res.send('User logged in successfully');
+    // Set user data in the session
+    req.session.user = { id: user._id, username: user.username };
+    return res.send('User logged in successfully');
 });
+
 router.get('/', (req, res) => {
     res.render('index');
 });

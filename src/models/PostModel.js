@@ -1,11 +1,12 @@
-const mongoose = require('../data/db');
+const mongoose = require('../data/db'); // Ensure this imports the correct mongoose instance
+
 const postSchema = new mongoose.Schema({
-    id:{
+    userId: { // Changed id to userId for clarity
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        // required: true,
+        ref: 'User', // Reference to the User model
+        required: true, // Set as required if every post must have a user
     },
-    idChat: {
+    chatId: { // Changed idChat to chatId for consistency and clarity
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Chat',
     },
@@ -18,7 +19,7 @@ const postSchema = new mongoose.Schema({
     content: {
         type: String,
         minlength: 3,
-        maxlength:550,
+        maxlength: 550,
         required: true,
     },
     likes: {
@@ -27,18 +28,23 @@ const postSchema = new mongoose.Schema({
     },
     skills: {
         type: [String],
-        enum: ['HTML', 'CSS', 'JavaScript', 'Node', 'Express', 'React', 'MongoDB','node.js'],
-        required: true
+        default: [],
+        required: true,
     },
     createdAt: {
         type: Date,
-        default: Date.now
-    },  
+        default: Date.now,
+    },
     updatedAt: {
         type: Date,
-        
-        default: Date.now
-    }
+        default: Date.now,
+    },
+});
+
+// // Add a pre-save hook to update the updatedAt field
+postSchema.pre('save', function (next) {
+    this.updatedAt = Date.now(); // Update the updatedAt timestamp on save
+    next();
 });
 
 module.exports = mongoose.model('Post', postSchema);
